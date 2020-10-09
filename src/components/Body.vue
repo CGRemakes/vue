@@ -48,33 +48,48 @@ export default {
   methods: {
     getGames() {
       try {
-        this.$http.get(API_BASE_URL + "/victories").then(response => {
-          this.games = response.data.data;
-          this.isLoading = false;
-        });
+        this.$http
+          .get(API_BASE_URL + "/victories")
+          .then(response => {
+            this.games = response.data.data;
+            this.isLoading = false;
+          })
+          .catch(e => {
+            console.log(e);
+          });
       } catch (e) {
         console.log(e);
       }
     },
     removeGame(id) {
       try {
-        this.$http.delete(API_BASE_URL + "/victories/" + id).then(response => {
-          let index = this.games.map(item => item.id).indexOf(id);
-          this.games.splice(index, 1);
-          console.log(response);
-        });
+        this.$http
+          .delete(API_BASE_URL + "/victories/" + id)
+          .then(response => {
+            let index = this.games.map(item => item.id).indexOf(id);
+            this.games.splice(index, 1);
+            console.log(response);
+          })
+          .catch(e => {
+            console.log(e);
+          });
       } catch (e) {
         console.log(e);
       }
     },
     addGame(data) {
       try {
-        this.$http.post(API_BASE_URL + "/victories", data).then(response => {
-          this.games.push(response.data.data);
-          data.game_date = "";
-          data.byu_score = "";
-          data.utah_score = "";
-        });
+        this.$http
+          .post(API_BASE_URL + "/victories", data)
+          .then(response => {
+            this.games.push(response.data.data);
+            data.game_date = "";
+            data.byu_score = "";
+            data.utah_score = "";
+          })
+          .catch(e => {
+            console.log(e);
+          });
       } catch (e) {
         console.log(e);
       }
@@ -88,6 +103,9 @@ export default {
           .post(API_BASE_URL + "/victories/" + id, data)
           .then(response => {
             console.log(response);
+          })
+          .catch(e => {
+            console.log(e);
           });
       } catch (e) {
         console.log(e);
